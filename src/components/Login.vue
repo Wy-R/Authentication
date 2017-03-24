@@ -1,16 +1,8 @@
 <template>
-	<div class="container">
-		<h2>Login</h2>
-		<p>
-			<label for="username">UserName</label>
-			<input type="text" class="ipt" placeholder="请输入用户名" name="username" v-model="username">
-		</p>
-		<p>
-			<label for="username">PassWord</label>
-			<input type="text" class="ipt" placeholder="请输入密码" name="password" v-model="password">
-		</p>
-		<p class="msg">{{msg}}</p>
-		<p><button class="btn" @click="loginIn">Login In</button></p>
+	<div class="login-page">
+		<mu-text-field label="用户名" hintText="请输入用户名" type="text" labelFloat v-model="username"/><br/>
+		<mu-text-field label="密码" hintText="请输入密码" type="password" labelFloat v-model="password"/><br/>
+		<mu-raised-button label="LOGIN IN" class="demo-raised-button login-btn" primary @click="loginIn"/>
 	</div>
 	
 </template>
@@ -54,8 +46,13 @@
 
 	}
 </script>
-<style type="text/css">
-	.msg{
-		color:red;
+<style lang="scss">
+@import "../assets/common.scss";
+.login-page{
+	@include add-padding(30px,0px,30px,0px);
+
+	.login-btn{
+		@include add-margin(30px,0px,30px,0px)
 	}
+}
 </style>

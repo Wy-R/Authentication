@@ -1,22 +1,14 @@
 <template>
-	<div class="container">
-		<h2>Reg</h2>
-		<p>
-			<label for="username">UserName</label>
-			<input type="text" class="ipt" placeholder="请输入用户名" name="username" v-model="username">
-		</p>
-		<p>
-			<label for="username">PassWord</label>
-			<input type="text" class="ipt" placeholder="请输入密码" name="password" v-model="password">
-		</p>
-		<p><button class="btn" @click="loginIn">Login In</button></p>
-		<p class="errormsg">{{msg}}</p>
+	<div class="reg-page">
+		<mu-text-field label="用户名" hintText="用户名为必填项" type="text" labelFloat v-model="username"/><br/>
+		<mu-text-field label="密码" hintText="请输入密码" type="password" labelFloat v-model="password"/><br/>
+		<mu-raised-button label="REGISTER" class="demo-raised-button reg-btn" primary @click="register"/>
 	</div>
 </template>
 
 <script type="text/javascript">
 	export default{
-		name:"login",
+		name:"register",
 		data(){
 			return {
 				username:'',
@@ -26,7 +18,7 @@
 			}
 		},
 		methods:{
-			loginIn(){
+			register(){
 				var info = {
 					"username": this.username,
 					"password": this.password
@@ -46,12 +38,17 @@
 					console.warn(err.code)
 				})
 
-			}
+			},
 		}
 	}
 </script>
-<style type="text/css">
-	.errormsg{
-		color:red;
+<style lang="scss">
+@import "../assets/common.scss";
+.reg-page{
+	@include add-padding(30px, 0px,30px,0px)
+
+	.reg-btn{
+		@include add-margin(30px,0px,30px,0px)
 	}
+}
 </style>

@@ -1,0 +1,15 @@
+// 添加内边距
+@mixin add-padding($t:10px,$r:0px,$b:10px,$l:0px){
+	padding:$t $r $b $l;
+}
+//添加外边距
+
+@mixin add-margin($t:10px,$r:0px,$b:10px,$l:0px){
+	margin:$t $r $b $l;
+}
+
+// 主色调
+$lightBlue: #03a9f4;
+
+//淡粉色-pinkA200
+$lightPink: #ff4081;

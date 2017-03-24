@@ -1,10 +1,9 @@
 <template>
-  <div class="hello">
+  <div class="hello-page">
     <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
     <h3>当前用户是：{{current_user}}</h3>
-    <p  v-show="is_login"><button @click="logout()">Login Out</button></p>
-    <p  v-show="!is_login"><router-link :to="{ path: 'login' }">Login</router-link></p>
+    <mu-raised-button label="LOGIN OUT" v-show="is_login" class="demo-raised-button loginout-btn" primary @click="logout"/>
+    <mu-raised-button label="LOGIN IN" v-show="!is_login" class="demo-raised-button login-btn" primary @click="loginIn"/>
   </div>
 </template>
 
@@ -13,7 +12,7 @@ export default {
     name: 'hello',
     data () {
         return {
-            msg: 'Welcome to Your Vue.js App',
+            msg: 'Welcome to Here',
             current_user:'',
             is_login:false
         }
@@ -49,28 +48,33 @@ export default {
             this.current_user = '当前用户未登录'
             this.is_login = false
             this.$cookie.delete('access_token')
+        },
+        loginIn(){
+            this.$router.push({ path: 'login'})
         }
     }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
+<style lang="scss">
+@import "../assets/common.scss";
+.hello-page{
+    @include add-padding(50px,10px,10px,10px);
+    h1{
+        color:$lightBlue;
+    }
+    h3{
+        color:$lightBlue;
+        @include add-padding(0px,10px,10px,30px)
+    }
+    p{
+        text-align:left;
+        @include add-padding(0px,10px,10px,30px);
+        font-size:20px;
+    }
+    .loginout-btn{
+        background-color:$lightPink
+    }
 }
 </style>
