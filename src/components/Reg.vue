@@ -2,7 +2,9 @@
 	<div class="reg-page">
 		<mu-text-field label="用户名" hintText="用户名为必填项" type="text" labelFloat v-model="username"/><br/>
 		<mu-text-field label="密码" hintText="请输入密码" type="password" labelFloat v-model="password"/><br/>
+		<p class="err-msg">{{msg}}</p>
 		<mu-raised-button label="REGISTER" class="demo-raised-button reg-btn" primary @click="register"/>
+		
 	</div>
 </template>
 
@@ -14,7 +16,7 @@
 				username:'',
 				password:'',
 				apiUrl:'http://127.0.0.1:5000/reg',
-				msg:""
+				msg:"请填写正确的用户名和密码"
 			}
 		},
 		methods:{
@@ -49,6 +51,9 @@
 
 	.reg-btn{
 		@include add-margin(30px,0px,30px,0px)
+	}
+	.err-msg{
+		color:$red;
 	}
 }
 </style>

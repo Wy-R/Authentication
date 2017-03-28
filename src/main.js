@@ -28,4 +28,5 @@ router.beforeEach((to, from, next) => {
 	 */
 	// console.info(to, from)
 	document.title = to.name || document.title
+	next();
 })

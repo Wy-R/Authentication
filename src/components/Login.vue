@@ -2,6 +2,7 @@
 	<div class="login-page">
 		<mu-text-field label="用户名" hintText="请输入用户名" type="text" labelFloat v-model="username"/><br/>
 		<mu-text-field label="密码" hintText="请输入密码" type="password" labelFloat v-model="password"/><br/>
+		<p class="err-msg">{{msg}}</p>
 		<mu-raised-button label="LOGIN IN" class="demo-raised-button login-btn" primary @click="loginIn"/>
 	</div>
 	
@@ -53,6 +54,9 @@
 
 	.login-btn{
 		@include add-margin(30px,0px,30px,0px)
+	}
+	.err-msg{
+		color:$red;
 	}
 }
 </style>

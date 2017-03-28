@@ -17,8 +17,8 @@ Vue.use(VueCookie)
 export default new Router({
     routes: [{
         path: '/',
-        name: 'Register',
-        component: Reg
+        name: 'Home',
+        component: Welcome
     }, {
         path: '/login',
         name: 'Login',
