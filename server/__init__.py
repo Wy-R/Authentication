@@ -6,7 +6,7 @@ from passlib.apps import custom_app_context as pwd_context
 # 配置数据库信息
 from flask_sqlalchemy import SQLAlchemy
 
-from flask_jwt import JWT, jwt_required, current_identity,timedelta
+from flask_jwt import JWT, jwt_required, current_identity, timedelta
 
 # token
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
@@ -48,7 +48,6 @@ class User(db.Model):
 
 
 # jwt 鉴权
-
 def authenticate(username, password):
     print("JWT jianquanzhong...", username, password)
     user = User.query.filter_by(username=username).first()
@@ -58,6 +57,7 @@ def authenticate(username, password):
         abort(401)
 
 # jwt 身份识别
+
 
 def identity(payload):
     print("JWT payload", payload)
@@ -86,9 +86,11 @@ def add_cors_headers(response):
                          'GET, PUT, POST, DELETE')
     return response
 
+
 @app.errorhandler(401)
 def custom_401(error):
-    return "Something happend"
+    return jsonify({"errcode": 1, "msg": "something happend"})
+
 
 @app.route('/reg', methods=['POST'])
 def reg_user():
@@ -96,9 +98,9 @@ def reg_user():
     password = request.get_json()['password']
     user = User.query.filter_by(username=username).first()
     if user is not None:
-        return jsonify({"msg":"该用户名已经被使用，请换个用户名注册","errcode":1})
+        return jsonify({"msg": "该用户名已经被使用，请换个用户名注册", "errcode": 1})
     if not username or not password:
-        return jsonify({"msg": "用户名或者密码未填写，请重新填写","errcode":2})
+        return jsonify({"msg": "用户名或者密码未填写，请重新填写", "errcode": 2})
     data = User(username=username)
     data.hash_password(password)
     db.session.add(data)
@@ -106,12 +108,10 @@ def reg_user():
     return jsonify({"username": data.username})
 
 
-
 @app.route('/hello', methods=['GET'])
 @jwt_required()
 def hello():
     return '%s' % current_identity
-
 
 
 if __name__ == '__main__':

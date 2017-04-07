@@ -8,13 +8,12 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name: 'hello',
     data () {
         return {
             msg: 'Welcome to Here',
-            current_user:'',
-            is_login:false
         }
     },
     computed:{
@@ -24,32 +23,68 @@ export default {
             }else{
                 return ''
             }
+        },
+        is_login(){
+            return this.$store.state.is_login
+        },
+        current_user(){
+            return this.$store.state.current_user
         }
     },
     created(){
-        var _that = this;
-        this.$http.get('http://localhost:5000/hello',{
+        // var _that = this;
+        // this.$http.get('http://localhost:5000/hello',{
+        //     headers:{
+        //         'Content-Type':'application/json',
+        //         'Authorization': "JWT "+this.token
+        //     }
+        // }).then((res)=>{
+        //     // console.info(res)
+            // this.current_user = res.body
+            // // this.is_login = true;
+            // this.$store.commit("loginState",{
+            //     "is_login": true
+            // })
+        // },(err)=>{
+        //     console.log("获取用户信息错误")
+        //     this.$router.push({ path: 'login'})
+        // })
+        // console.warn(axios)
+        axios.get('http://localhost:5000/hello',{
             headers:{
                 'Content-Type':'application/json',
                 'Authorization': "JWT "+this.token
             }
-        }).then((res)=>{
-            // console.info(res)
-            _that.current_user = res.body
-            _that.is_login = true;
-        },(err)=>{
-            console.log("获取用户信息错误")
-            _that.$router.push({ path: 'login'})
+        })
+        .then((res)=>{
+            console.info(res)
+            this.$store.commit("current_userInfo",{
+                'current_user': res.data
+            })
+            this.$store.commit("loginState",{
+                "is_login": true
+            })
+        })
+        .catch((err)=>{
+            this.$router.push({ path: 'login'})
         })
         console.info("JWT "+this.token)
     },
     methods:{
         logout(){
-            this.current_user = '当前用户未登录'
-            this.is_login = false
+            // this.current_user = '当前用户未登录'
+            // this.is_login = false
+            // this.$cookie.delete('access_token')
+            this.$store.commit("current_userInfo",{
+                'current_user': '当前未登录'
+            })
+            this.$store.commit("loginState",{
+                'is_login':false
+            })
             this.$cookie.delete('access_token')
         },
         loginIn(){
+            console.log("获取用户信息错误")
             this.$router.push({ path: 'login'})
         }
     }

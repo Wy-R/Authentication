@@ -3,12 +3,14 @@ import Router from 'vue-router'
 import VueResource from 'vue-resource'
 import VueCookie from 'vue-cookie'
 
+
 // component
 import Welcome from '@/components/Welcome'
 import Hello from '@/components/Hello'
 import Login from '@/components/Login'
 import Reg from '@/components/Reg'
 
+// import Axios from 'axios';
 
 Vue.use(Router)
 Vue.use(VueResource)

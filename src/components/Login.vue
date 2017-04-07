@@ -8,7 +8,8 @@
 	
 </template>
 
-<script type="text/javascript">
+<script type="text/javascript">	
+	import axios from 'axios';
 	export default{
 		name:"login",
 		data(){
@@ -25,26 +26,47 @@
 					"username": this.username,
 					"password": this.password
 				}
-				var _that = this;
-				this.$http.post(this.apiUrl, info, {
+				// this.$http.post(this.apiUrl, info, {
+				// 	headers:{
+				// 		'Content-Type': 'application/json; charset=UTF-8'
+				// 	}
+				// }).then((res)=>{
+				// 	console.info(res)
+				// 	if(res.body.access_token==undefined){
+				// 		this.msg = "获取用户信息失败，请重新登录"
+				// 	}else{
+				// 		_that.$cookie.set('access_token', res.body.access_token);
+				// 		_that.$router.push({ path: 'hello'})
+				// 	}
+					
+				// },(err)=>{
+				// 	this.msg = "用户名或者密码错误"
+				// })
+				axios.post(this.apiUrl, info,{
 					headers:{
 						'Content-Type': 'application/json; charset=UTF-8'
 					}
-				}).then((res)=>{
-					console.info(res)
-					if(res.body.access_token==undefined){
-						this.msg = "获取用户信息失败，请重新登录"
-					}else{
-						_that.$cookie.set('access_token', res.body.access_token);
-						_that.$router.push({ path: 'hello'})
-					}
-					
-				},(err)=>{
-					this.msg = "用户名或者密码错误"
 				})
+				.then((res)=>{
+					console.log("ok",res)
+					if(res.data.errcode){
+						this.msg = '用户名或者密码错误'
+						return false;
+					}
+					/**token 存储到 cookie 中**/
+					this.$cookie.set('access_token', res.data.access_token);
+					/** 全局更新当前用户名  */
+					this.$store.commit('loginState',{
+						'current_user': this.username
+					})
+					this.$router.push({ path: 'hello'})
+				})
+				.catch(function (error) {
+				    // console.log(error);
+				    this.msg = '用户名或者密码错误'
+				});
 			}
 		}
-
 	}
 </script>
 <style lang="scss">

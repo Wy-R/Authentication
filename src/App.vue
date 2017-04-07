@@ -18,7 +18,7 @@ export default {
     },
     watch:{
         "$route"(){
-            console.log(this.Title)
+            // console.log(this.Title)
             this.Title = this.$route.name
         }
     }

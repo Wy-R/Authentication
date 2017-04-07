@@ -6,14 +6,23 @@ import router from './router'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 
+import axios from 'axios'
+
+// console.info(axios)
+// Vue.prototype.$http = axios
+
+// Vue.use(axios)
+
 Vue.use(MuseUI)
 
 Vue.config.productionTip = false
 
+import store from './store/store.js'
 /* eslint-disable no-new */
 new Vue({
 	el: '#app',
 	router,
+	store,
 	template: '<App/>',
 	components: {
 		App
