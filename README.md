@@ -32,6 +32,21 @@
 		// error code here...
 	})
 ```
+新demo使用 **Axios** 来实现的
+
+因为这个是个插件，所以在文件中不能全局使用 ``use`` 引入，
+目前的做法是 **在每个需要使用的文件中import 该插件**，雨鞋麻烦
+
+还有一种方式是用 webpack 提供的这种方式来在全局使用，也不方便
+
+```
+	new webpack.ProvidePlugin({
+		axios: "axios
+	})
+```
+
+【后面再更新】
+
 后端用 **Flask** 实现的时候，因为 **Flask** 自带有 ``request.get_json()`` 的方法，那么在前端调用接口的时候传过去的必须是 json 的数据。所以必须是在【options】这个属性里面需要带上 Content-Type 这个属性
 
 部分的 **python** 代码如下：
@@ -43,7 +58,7 @@
 		password = request.get_json()['password']
 ```
 
-类似这样接收数据【未总结完】
+接收完数据之后，查询数据库，如果用户名已经存在，则返回 errcode，然后
 
 
 #### 样式
@@ -122,5 +137,7 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory)
 ```
 
 最后发现其实它将**publicPath** 也加进去了，我们只需要将**publicPath** 置空即可
+
+
 
 

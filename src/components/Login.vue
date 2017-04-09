@@ -9,7 +9,7 @@
 </template>
 
 <script type="text/javascript">	
-	import axios from 'axios';
+	// import axios from 'axios';
 	export default{
 		name:"login",
 		data(){
@@ -42,7 +42,7 @@
 				// },(err)=>{
 				// 	this.msg = "用户名或者密码错误"
 				// })
-				axios.post(this.apiUrl, info,{
+				this.$axios.post(this.apiUrl, info,{
 					headers:{
 						'Content-Type': 'application/json; charset=UTF-8'
 					}
