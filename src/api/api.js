@@ -11,7 +11,8 @@ function installAxios(Vue, options) {
 	installAxios.installed = true
 
 	if(!axios){
-		console.error("Please install axios")
+		console.error("Please install axios");
+		return false;
 	}
 
 	/** 组件注入的方式 **/
@@ -23,13 +24,13 @@ function installAxios(Vue, options) {
 	// 调用方式直接是  this.$axios -->  返回 axios 插件
 
 	/** or  添加实例的方法**/
-	Object.defineProperties(Vue.prototype,{
-		$axios:{
-			get(){
-				return getAxios
-			}
-		}
-	})
+	// Object.defineProperties(Vue.prototype,{
+	// 	$axios:{
+	// 		get(){
+	// 			return getAxios
+	// 		}
+	// 	}
+	// })
 	
 }
 

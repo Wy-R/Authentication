@@ -45,8 +45,34 @@
 	})
 ```
 
-【后面再更新】
+【更新下】
 
+用 Vue.use(plugin) 的方式来引入 **axios**
+
+**方式1 -->**  组件注入的形式
+
+```
+	Vue.mixin({
+		created() {
+			return this.$axios = axios;
+		}
+	})
+```
+**方式2 -->** 针对 Vue 的prototype 的方式，通过 defineProperties 创建实例方法
+
+```
+	Object.defineProperties(Vue.prototype,{
+		$axios:{
+			get(){
+				return getAxios
+			}
+		}
+	})
+```
+
+这两种方式都可以通过 **Vue.use** 的方式在所有文件中直接引用 axios
+
+ 
 后端用 **Flask** 实现的时候，因为 **Flask** 自带有 ``request.get_json()`` 的方法，那么在前端调用接口的时候传过去的必须是 json 的数据。所以必须是在【options】这个属性里面需要带上 Content-Type 这个属性
 
 部分的 **python** 代码如下：
@@ -107,7 +133,9 @@ router.beforeEach((to, from, next) => {
 	 */
 	document.title = to.name || document.title
 })
-``` 
+```
+
+ 
 
 在路由变化之前修改下导航栏的文字
 
